@@ -7,9 +7,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 
 # Connect to the database
-database_name = "fyyur"
-pg_user = "postgres"
-pg_pass = "chines2001"
+database_name = ""
+pg_user = ""
+pg_pass = ""
 database_path = "postgresql://{}:{}@{}/{}".format(pg_user, pg_pass,'localhost:5432', database_name)
 
 
