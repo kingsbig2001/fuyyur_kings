@@ -1,12 +1,15 @@
 {% extends 'layouts/main.html' %}
-{% block title %}Venue Search{% endblock %}
+{% block title %}{{ venue.name }} | Venue{% endblock %}
 {% block content %}
 <div class="row">
 	<div class="col-sm-6">
+		<form method="get" action="/venues/{{ venue.id }}/edit" class="edit-form">
+			<button type="submit" class="btn-edit"><span class="edit-icon">&#9998;</span> Edit </button>
+		</form>
 		<h1 class="monospace">
 			{{ venue.name }}
 		</h1>
-		<p class="subtitle">
+		<p class="subtitle" data-id="{{ venue.id }}">
 			ID: {{ venue.id }}
 		</p>
 		<div class="genres">
@@ -74,6 +77,31 @@
 		{% endfor %}
 	</div>
 </section>
-
+<section class="btn-delete">
+	<input type="submit" data-id={{ venue.id }} id="delete-venue" value="Remove {{ venue.name }}" />
+</section>
+<script>
+	const deleteVenue = document.getElementById("delete-venue");
+	deleteVenue.onclick = ((event) =>{
+		event.preventDefault();
+		let deleteConfirmation = confirm(`You are about to ${deleteVenue.value}`);
+		if(deleteConfirmation){
+			const venueId = deleteVenue.dataset.id;
+		fetch('/venues/' + venueId, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type' : 'application/json'
+			}
+		})
+		.then((res)=>console.log(res))
+		.then(()=>{
+			location.replace('/');
+			
+		})
+		}
+		
+		
+	})
+</script>
 {% endblock %}
 

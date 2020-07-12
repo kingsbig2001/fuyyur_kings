@@ -87,6 +87,28 @@ p.lead {
     color: #444;
 }
 
+.btn-delete {
+text-align: center;
+}
+
+.btn-delete > input {
+  width: 40%;
+  padding: 8px;
+  background-color: #ff8c3a;
+}
+
+.btn-edit {
+  background-color: #ff8c3a;
+  width: 10%;
+  padding: 4px;
+ }
+ .edit-icon {
+  display: inline-block;
+  transform: rotateZ(90deg);
+}
+ .edit-form {
+   text-align: right;
+ }
 #content h3 {
   margin-top: 15px;
   margin-bottom: 15px;

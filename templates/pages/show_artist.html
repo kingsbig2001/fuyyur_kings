@@ -3,6 +3,9 @@
 {% block content %}
 <div class="row">
 	<div class="col-sm-6">
+		<form method="get" action="/artists/{{ artist.id }}/edit" class="edit-form">
+			<button type="submit" class="btn-edit"><span class="edit-icon">&#9998;</span> Edit </button>
+		</form>
 		<h1 class="monospace">
 			{{ artist.name }}
 		</h1>
@@ -40,7 +43,7 @@
 		{% endif %}
 	</div>
 	<div class="col-sm-6">
-		<img src="{{ artist.image_link }}" alt="Venue Image" />
+		<img src="{{ artist.image_link }}" alt="Artist Image" />
 	</div>
 </div>
 <section>
@@ -71,6 +74,31 @@
 		{% endfor %}
 	</div>
 </section>
+<section class="btn-delete">
+	<input type="submit" data-id={{ artist.id }} id="delete-artist" value="Remove {{ artist.name }}" />
+</section>
+<script>
+	const deleteArtist = document.getElementById("delete-artist");
+	deleteArtist.onclick = ((event) =>{
+		event.preventDefault();
+		let deleteConfirmation = confirm(`You are about to ${deleteArtist.value}`);
+		if(deleteConfirmation){
+			const artistId = deleteArtist.dataset.id;
+		fetch('/artists/' + artistId, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type' : 'application/json'
+			}
+		})
+		.then((res)=>console.log(res))
+		.then(()=>{
+			location.replace('/')
+		})
+	}
+		
+		
+	})
+</script>
 
 {% endblock %}
 
